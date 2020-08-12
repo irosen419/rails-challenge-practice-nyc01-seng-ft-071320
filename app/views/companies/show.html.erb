@@ -1,0 +1,33 @@
+<h1><%=@company.name%></h1>
+
+<h2>Our Offices</h2>
+<ol>
+<% @company.offices.each do |office| %>
+    <li>
+      <%= office.building.name %> on floor <%= office.floor%>
+    </li>
+<% end %>
+</ol>
+<h2>Add An Employee Here:</h2>
+<%= form_for(@company) do |company_builder| %>
+    <%=company_builder.fields_for :employees, @company.employees.build do |eb|%>
+        <%= eb.hidden_field :company_id %>
+
+        <%= eb.label :name %>
+        <%= eb.text_field :name %>
+
+        <%= eb.label :title %>
+        <%= eb.text_field :title %>
+
+    <% end %>
+    <%= company_builder.submit "Add Employee"%>
+<% end %>
+
+<h1>Our Wonderful Employees</h1>
+
+<% @company.employees.each do |employee|%>
+    <%if employee.id && employee.name%>
+        <p><%= employee.name%></p>
+        <%= button_to 'Fire Employee', employee_path(employee), method: :delete, data: {confirm: "You're fired!"} %>
+    <%end%>
+<% end %>

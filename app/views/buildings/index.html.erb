@@ -1,0 +1,17 @@
+<h1>Our Buildings</h1>
+
+<ol style="font-size: 20px">
+<% @buildings.each do |building| %>
+    <li>
+      <h2><%= building.name %></h2>
+    </li>
+    <h3>Available Floors</h3>
+    <ul>
+    <%building.number_of_floors_available.each do |floor|%>
+        <li>
+          <%= floor %>
+        </li>
+    <% end %>
+    </ul><br>
+<% end %>
+</ol>
